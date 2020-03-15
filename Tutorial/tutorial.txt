@@ -1,0 +1,8 @@
+Phiên bản Laravel FrameWork 7.0.0
+1. File laravel này đã cài đặt đầy đủ bootstrap, Authorization, Ckeditor 4, sắp xếp navbar, header, footer theo thứ tự...
+    - Bootstrap: folder public/css & public/js
+    - Ckeditor 4: foler partials/footer.blade.php
+    - Authorization: Phân quyền giữa admin và superadmin, đọc tại đây: https://www.5balloons.info/user-role-based-authentication-and-access-control-in-laravel/
+    - Layouts chính để @extends về: folder resources/views/layouts/app.blade.php
+2. Chỉ cần triển khai đúng theo mô hình đã cài đặt sẵn
+3. Nếu có bất kỳ câu hỏi gì, liên hệ: https://www.facebook.com/demon977

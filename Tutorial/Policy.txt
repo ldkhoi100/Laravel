@@ -1,0 +1,37 @@
+1. Tạo policy: php artisan make:policy UserPolicy -m  User: tên policy là User
+2. folder: Tự tạo folder trong app/policies với tên như trên
+3. Trong policy: Ví dụ: Viết 1 hàm trả về true nếu user->id === 1.
+
+   public function view(User $user)
+    {
+        return $user->id  === 1;
+    }
+
+4. Trong controller xử lý: 
+Viết $this->authorize($customer, 'view');
+- Trong đó: 
++ $customer là biến của customer khi $customer = Customer::findOrFail($id); chẳng hạn
++ 'view' là function của nó trong policy/Customer
+Ví dụ: 
+public function show($id)
+    {
+        $customer = Customer::findOrFail($id);
+        $this->authorize($customer, 'view');
+        return view('customers.show', compact('customer'));
+    }
+
+5. Quyền SuperAdmin: Truy cập mọi nơi mà ko cần quyền: 
+Trong app/Providers/AuthServiceProvider.php : Chỉnh sửa function boot
+
+    public function boot()
+    {
+        $this->registerPolicies();
+
+        Gate::before(function ($user) {
+            if ($user->id == 1) {
+                return true;
+            }
+        });
+    }
+
+Có nghĩa là user với id = 1 thì có thể truy cập tự do

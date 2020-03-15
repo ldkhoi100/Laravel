@@ -1,0 +1,13 @@
+body {
+    font-size: 0.9em;
+}
+
+
+/* Image zoom */
+
+#zoom:hover {
+    transition: transform .2s;
+    /* Animation */
+    transform: scale(1.5);
+    /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+}
