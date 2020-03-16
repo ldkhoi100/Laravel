@@ -2,18 +2,22 @@
 
 @section('title', 'Trash Posts')
 
+@section('search')
+@include('posts.searchTrash')
+@endsection
+
 @section('content')
 
 <link rel="stylesheet" href="{{ asset('css/view.css') }}">
 
 <div class="container">
 
-    <div class="col-md-12">
-        <h2>Trash Posts</h2>
-    </div>
-
     <div class="col-12">
         @include('partials.message')
+    </div>
+
+    <div class="col-md-12">
+        <h2>Trash Posts</h2>
     </div>
 
     <div class="col-12">
@@ -74,7 +78,7 @@
                             {{'No image'}}
                             @endif
                         </td>
-                        <td>{{ $post->users->name }}</td>
+                        <td>{{ $post->users->username }}</td>
                         <td>{{ $post->deleted_at }}</td>
 
                         <td><a href="{{ route('posts.edit', $post->id) }}" class="btn btn-info">Edit</a></td>

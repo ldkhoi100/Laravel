@@ -1,6 +1,6 @@
-{{-- Search --}}
+{{-- Search trash--}}
 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <form class="form-inline mr-auto" action="{{ route('posts.search') }}" method="get">
+    <form class="form-inline mr-auto" action="{{ route('posts.search-trash') }}" method="get">
         @csrf
         <div class="row">
             <div class="col-8">

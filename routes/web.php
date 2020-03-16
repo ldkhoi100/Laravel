@@ -22,7 +22,8 @@ Route::get('/superadmin', 'SuperAdminController@index');
 //Demo Post
 Route::resource('/posts', 'PostsControllers');
 Route::get('/posts-search', 'PostsControllers@search')->name('posts.search');
-Route::get('/posts-trash', 'PostsControllers@trashed')->name('posts.trashed');
+Route::get('/posts-search-trash', 'PostsControllers@searchTrash')->name('posts.search-trash');
+Route::get('/posts-trash', 'PostsControllers@trashed')->name('posts.trash');
 Route::get('/posts/{id}/restore', 'PostsControllers@restore')->name('posts.restore');
 Route::get('/posts-restore-all', 'PostsControllers@restoreAll')->name('posts.restore-all');
 Route::get('/posts/{id}/delete', 'PostsControllers@delete')->name('posts.delete');

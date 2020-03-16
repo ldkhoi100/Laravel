@@ -2,6 +2,10 @@
 
 @section('title', 'List Posts')
 
+@section('search')
+@include('posts.search')
+@endsection
+
 @section('content')
 
 <link rel="stylesheet" href="{{ asset('css/view.css') }}">
@@ -14,11 +18,7 @@
 
     <div class="col-md-12">
         <h2>List Posts</h2>
-        {{--  Search  --}}
-        <div>
-            @include('posts.search')
-
-        </div>
+        <a href="{{ route('posts.trash') }}" class="btn btn-warning float-right">Trash</a>
     </div>
 
     <div>
@@ -32,12 +32,13 @@
         <div class="col-md-12">
 
             <table class="table table-striped">
+
                 <thead>
 
                     <tr>
                         <th scope="col">#</th>
                         <th scope="col" width=20%>Title</th>
-                        <th scope="col" width=20%>Content</th>
+                        <th scope="col" width=15%>Content</th>
                         <th scope="col">Image</th>
                         <th scope="col">User</th>
                         <th scope="col">Create at</th>
@@ -64,9 +65,11 @@
                         <td>
                             <a class="limited-text" href="{{ route('posts.show', $post->id) }}">{{ $post->title }}</a>
                         </td>
+
                         <td>
                             <a class="limited-text" href="{{ route('posts.show', $post->id) }}">Show content</a>
                         </td>
+
                         <td>
                             @if($post->image)
                             <img id="zoom" src="data:image;base64, {{ $post->image }}" width="60px" height="60px">
@@ -74,9 +77,11 @@
                             {{'No image'}}
                             @endif
                         </td>
-                        <td>{{ $post->users->name }}</td>
+
+                        <td>{{ $post->users->username }}</td>
                         <td>{{ $post->created_at }}</td>
                         <td>{{ $post->updated_at }}</td>
+
                         <td><a href="{{ route('posts.edit', $post->id) }}" class="btn btn-info">Edit</a></td>
 
                         <td>
@@ -105,4 +110,5 @@
     </div>
 
 </div>
+
 @endsection

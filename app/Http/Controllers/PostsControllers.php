@@ -5,10 +5,10 @@ namespace App\Http\Controllers;
 use App\Posts;
 use http\Env\Response;
 use Illuminate\Http\Request;
-use Session;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\PostsRequest;
-use DB;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 
 class PostsControllers extends Controller
@@ -134,17 +134,17 @@ class PostsControllers extends Controller
     {
         $post = Posts::onlyTrashed()->findOrFail($id);
         $post->restore();
-        return redirect()->route('posts.trashed')->with('success', "Post $post->title restored!");
+        return redirect()->route('posts.trash')->with('success', "Post $post->title restored!");
     }
 
     public function restoreAll()
     {
         $post = Posts::onlyTrashed()->get();
         if (count($post) == 0) {
-            return redirect()->route('posts.trashed')->with('delete', "Clean trash, nothing to restore!");
+            return redirect()->route('posts.trash')->with('delete', "Clean trash, nothing to restore!");
         } else {
             Posts::onlyTrashed()->restore();
-            return redirect()->route('posts.trashed')->with('delete', "All data restored!");
+            return redirect()->route('posts.trash')->with('delete', "All data restored!");
         }
     }
 
@@ -152,7 +152,7 @@ class PostsControllers extends Controller
     {
         $post = Posts::onlyTrashed()->findOrFail($id);
         $post->forceDelete();
-        return redirect()->route('posts.trashed')->with('delete', "Post $post->title deleted forever!");
+        return redirect()->route('posts.trash')->with('delete', "Post $post->title deleted forever!");
     }
 
     public function deleteAll()
@@ -160,10 +160,10 @@ class PostsControllers extends Controller
         $post = Posts::onlyTrashed()->get();
 
         if (count($post) == 0) {
-            return redirect()->route('posts.trashed')->with('delete', "Clean trash, nothing to delete!");
+            return redirect()->route('posts.trash')->with('delete', "Clean trash, nothing to delete!");
         } else {
             Posts::onlyTrashed()->forceDelete();
-            return redirect()->route('posts.trashed')->with('delete', "All posts deleted forever!");
+            return redirect()->route('posts.trash')->with('delete', "All posts deleted forever!");
         }
     }
 
@@ -177,5 +177,17 @@ class PostsControllers extends Controller
         $posts = Posts::where('title', 'LIKE', '%' . $keyword . '%')
             ->paginate(10);
         return view('posts.list', compact('posts'));
+    }
+
+    //Search trash
+    public function searchTrash(Request $request)
+    {
+        $keyword = $request->input('keyword');
+        if (!$keyword) {
+            return redirect()->route('posts.trash');
+        }
+        $posts = Posts::onlyTrashed()->where('title', 'LIKE', '%' . $keyword . '%')
+            ->paginate(10);
+        return view('posts.trash', compact('posts'));
     }
 }
