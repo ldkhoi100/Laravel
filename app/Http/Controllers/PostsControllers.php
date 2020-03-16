@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Posts;
+use App\Categories;
 use http\Env\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
@@ -26,7 +27,8 @@ class PostsControllers extends Controller
     public function index()
     {
         $posts = Posts::paginate(10);
-        return view('posts.list', compact('posts'));
+        $categories = Categories::all();
+        return view('posts.list', compact('posts', 'categories'));
     }
 
     /**
@@ -36,7 +38,8 @@ class PostsControllers extends Controller
      */
     public function create()
     {
-        return view('posts.create');
+        $categories = Categories::all();
+        return view('posts.create', compact('categories'));
     }
 
     /**
@@ -50,6 +53,7 @@ class PostsControllers extends Controller
         $post = new Posts();
         $post->title = request('title');
         $post->content = request('content');
+        $post->category_id = request('category_id');
 
         if ($post->image) {
             $post->image = base64_encode(file_get_contents($request->file('image')->getRealPath()));
@@ -82,8 +86,9 @@ class PostsControllers extends Controller
     public function edit($id)
     {
         $post = Posts::withTrashed()->findOrFail($id);
+        $categories = Categories::all();
         // $this->authorize($post, 'update');
-        return view('posts.edit', compact('post'));
+        return view('posts.edit', compact('post', 'categories'));
     }
 
     /**
@@ -98,6 +103,7 @@ class PostsControllers extends Controller
         $post = Posts::withTrashed()->findOrFail($id);
         $post->title = request('title');
         $post->content = request('content');
+        $post->category_id = request('category_id');
 
         if ($request->hasFile('image')) {
             $post->image = base64_encode(file_get_contents($request->file('image')->getRealPath()));
@@ -189,5 +195,23 @@ class PostsControllers extends Controller
         $posts = Posts::onlyTrashed()->where('title', 'LIKE', '%' . $keyword . '%')
             ->paginate(10);
         return view('posts.trash', compact('posts'));
+    }
+
+    public function filterByCategories(Request $request)
+    {
+        $idCity = request('id');
+
+        if (!empty($idCity)) {
+            //kiem tra categories co ton tai khong
+            $categoriesFilter = Categories::findOrFail($idCity);
+
+            //lay ra tat ca posts cua categoriesFilter
+            $posts = Posts::where('category_id', $categoriesFilter->id)->paginate(10);
+            $totalPostsFilter = count($posts);
+            $categories = Categories::all();
+
+            return view('posts.list', compact('categories', 'posts', 'totalPostsFilter', 'categoriesFilter'));
+        }
+        return redirect()->route('posts.index');
     }
 }

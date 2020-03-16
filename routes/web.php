@@ -21,6 +21,7 @@ Route::get('/superadmin', 'SuperAdminController@index');
 
 //Demo Post
 Route::resource('/posts', 'PostsControllers');
+Route::get('/filte', 'PostsControllers@filterByCategories')->name('posts.filterByCategory');
 Route::get('/posts-search', 'PostsControllers@search')->name('posts.search');
 Route::get('/posts-search-trash', 'PostsControllers@searchTrash')->name('posts.search-trash');
 Route::get('/posts-trash', 'PostsControllers@trashed')->name('posts.trash');
@@ -28,6 +29,17 @@ Route::get('/posts/{id}/restore', 'PostsControllers@restore')->name('posts.resto
 Route::get('/posts-restore-all', 'PostsControllers@restoreAll')->name('posts.restore-all');
 Route::get('/posts/{id}/delete', 'PostsControllers@delete')->name('posts.delete');
 Route::get('/posts-delete-all', 'PostsControllers@deleteAll')->name('posts.delete-all');
+
+
+//Categories
+Route::resource('/categories', 'CategoriesControllers');
+Route::get('/categories-search', 'CategoriesControllers@search')->name('categories.search');
+Route::get('/categories-search-trash', 'CategoriesControllers@searchTrash')->name('categories.search-trash');
+Route::get('/categories-trash', 'CategoriesControllers@trashed')->name('categories.trash');
+Route::get('/categories/{id}/restore', 'CategoriesControllers@restore')->name('categories.restore');
+Route::get('/categories-restore-all', 'CategoriesControllers@restoreAll')->name('categories.restore-all');
+Route::get('/categories/{id}/delete', 'CategoriesControllers@delete')->name('categories.delete');
+Route::get('/categories-delete-all', 'CategoriesControllers@deleteAll')->name('categories.delete-all');
 
 // Route::group(['middleware' => ['web']], function () {
 //     Route::get('session', function () {

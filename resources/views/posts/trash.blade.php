@@ -42,6 +42,7 @@
                         <th scope="col">#</th>
                         <th scope="col" width=20%>Title</th>
                         <th scope="col" width=13%>Content</th>
+                        <th scope="col">Category</th>
                         <th scope="col">Image</th>
                         <th scope="col">User</th>
                         <th scope="col">Deleted at</th>
@@ -71,6 +72,7 @@
                         <td>
                             <a class="limited-text" href="{{ route('posts.show', $post->id) }}">Show content</a>
                         </td>
+                        <td>{{ $post->categories->name }}</td>
                         <td>
                             @if($post->image)
                             <img src="data:image;base64, {{ $post->image }}" width="60px" height="60px">

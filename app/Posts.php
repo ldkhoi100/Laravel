@@ -21,6 +21,9 @@ class Posts extends Model
 
     protected $dates = ['deleted_at'];
 
+    //Update datetime to table categories
+    protected $touches = ['categories'];
+
     /**
      * The attributes that should be casted to native types.
      *
@@ -33,5 +36,10 @@ class Posts extends Model
     public function users()
     {
         return $this->belongsTo("App\Account", 'user_id');
+    }
+
+    public function categories()
+    {
+        return $this->belongsTo("App\Categories", 'category_id');
     }
 }

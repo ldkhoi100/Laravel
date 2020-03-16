@@ -27,6 +27,11 @@
 
     <br />
 
+    {{--  Filter posts  --}}
+    <div>
+        @include('posts.filter')
+    </div>
+
     <div class="row">
 
         <div class="col-md-12">
@@ -39,6 +44,7 @@
                         <th scope="col">#</th>
                         <th scope="col" width=20%>Title</th>
                         <th scope="col" width=15%>Content</th>
+                        <th scope="col">Category</th>
                         <th scope="col">Image</th>
                         <th scope="col">User</th>
                         <th scope="col">Create at</th>
@@ -69,6 +75,8 @@
                         <td>
                             <a class="limited-text" href="{{ route('posts.show', $post->id) }}">Show content</a>
                         </td>
+
+                        <td>{{ $post->categories->name }}</td>
 
                         <td>
                             @if($post->image)

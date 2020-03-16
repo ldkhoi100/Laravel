@@ -14,4 +14,9 @@ class Account extends Model
     {
         return $this->hasMany("App\Posts");
     }
+
+    public function categories()
+    {
+        return $this->hasMany("App\Categories");
+    }
 }
