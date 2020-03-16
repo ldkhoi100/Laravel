@@ -17,6 +17,12 @@
                 <li>
                     <a class="navbar-brand" href="{{ route('posts.index') }}">Posts</a>
                 </li>
+                <li>
+                    <a class="navbar-brand" href="{{ route('categories.index') }}">Categories</a>
+                </li>
+                <li>
+                    <a class="navbar-brand" href="{{ route('users.index') }}">Users</a>
+                </li>
                 {{-- @endguest --}}
             </ul>
 
@@ -44,7 +50,11 @@
                     </a>
 
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="{{ route('change-password.index') }}">
+                        <a class="dropdown-item" href="{{ route('details') }}">
+                            {{ __('Detail') }}
+                        </a>
+
+                        <a class="dropdown-item" href="{{ route('password') }}">
                             {{ __('Change Password') }}
                         </a>
 

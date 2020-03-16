@@ -72,7 +72,7 @@
                         </td>
                         <td>{{ count($category->posts) }}</td>
                         <td>{{ $category->users->username }}</td>
-                        <td>{{ $category->deleted_at }}</td>
+                        <td>{{ $category->deleted_at->format("d-m-Y H:i:s") }}</td>
 
                         <td><a href="{{ route('categories.edit', $category->id) }}" class="btn btn-info">Edit</a></td>
 

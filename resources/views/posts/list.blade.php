@@ -42,11 +42,12 @@
 
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col" width=20%>Title</th>
-                        <th scope="col" width=15%>Content</th>
+                        <th scope="col" width=15%>Title</th>
+                        <th scope="col" width=10%>Content</th>
                         <th scope="col">Category</th>
                         <th scope="col">Image</th>
-                        <th scope="col">User</th>
+                        <th scope="col">User Created</th>
+                        <th scope="col">User Updated</th>
                         <th scope="col">Create at</th>
                         <th scope="col">Update at</th>
                         <th></th>
@@ -59,7 +60,7 @@
 
                     @if(count($posts) == 0)
 
-                    <td colspan="10" class="text-center font-weight-bold">No data</td>
+                    <td colspan="11" class="text-center font-weight-bold">No data</td>
 
                     @else
 
@@ -76,7 +77,11 @@
                             <a class="limited-text" href="{{ route('posts.show', $post->id) }}">Show content</a>
                         </td>
 
+                        @if(empty($post->categories->name))
+                        <td></td>
+                        @else
                         <td>{{ $post->categories->name }}</td>
+                        @endif
 
                         <td>
                             @if($post->image)
@@ -86,9 +91,20 @@
                             @endif
                         </td>
 
+                        @if(empty($post->users->username))
+                        <td></td>
+                        @else
                         <td>{{ $post->users->username }}</td>
-                        <td>{{ $post->created_at }}</td>
-                        <td>{{ $post->updated_at }}</td>
+                        @endif
+
+                        @if(empty($post->users_update->username))
+                        <td></td>
+                        @else
+                        <td>{{ $post->users_update->username }}</td>
+                        @endif
+
+                        <td>{{ $post->created_at->format("d-m-Y H:i:s") }}</td>
+                        <td>{{ $post->updated_at->format("d-m-Y H:i:s") }}</td>
 
                         <td><a href="{{ route('posts.edit', $post->id) }}" class="btn btn-info">Edit</a></td>
 

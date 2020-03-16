@@ -13,11 +13,11 @@ class Categories extends Model
 
     public function posts()
     {
-        return $this->hasMany("App\Posts", 'category_id');
+        return $this->hasMany("App\Posts", 'category_id', 'id');
     }
 
     public function users()
     {
-        return $this->belongsTo("App\Account", 'user_id');
+        return $this->belongsTo("App\User", 'user_id', 'id');
     }
 }

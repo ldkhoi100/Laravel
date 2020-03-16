@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Rules\MatchOldPassword;
 use Illuminate\Support\Facades\Hash;
 use App\User;
+use Illuminate\Support\Facades\Auth;
 
 class ChangePasswordController extends Controller
 {
@@ -45,5 +46,24 @@ class ChangePasswordController extends Controller
         User::find(auth()->user()->id)->update(['password' => Hash::make($request->new_password)]);
 
         return redirect()->route('posts.index')->with('success', 'Success, Password has changed');
+    }
+
+    public function edit()
+    {
+        $user = User::findOrFail(Auth::user()->id);
+        return view('auth.edit', compact('user'));
+    }
+
+    public function update(Request $request)
+    {
+        $request->validate([
+            'current_password' => ['required', new MatchOldPassword]
+        ]);
+
+        $user = User::findOrFail(Auth::user()->id);
+        $user->name = request('name');
+        User::find(auth()->user()->id)->update(['name' => $user->name]);
+
+        return redirect()->route('posts.index')->with('success', 'Success, Details has changed');
     }
 }

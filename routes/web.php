@@ -7,7 +7,9 @@ Route::get('/', function () {
 });
 
 //Change password
-Route::resource('change-password', 'ChangePasswordController');
+Route::resource('/details', 'ChangePasswordController');
+Route::get('/password', 'ChangePasswordController@index')->name('password');
+Route::get('/detail', 'ChangePasswordController@edit')->name('details');
 //Logout
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout')->name('logout');
 
@@ -40,6 +42,9 @@ Route::get('/categories/{id}/restore', 'CategoriesControllers@restore')->name('c
 Route::get('/categories-restore-all', 'CategoriesControllers@restoreAll')->name('categories.restore-all');
 Route::get('/categories/{id}/delete', 'CategoriesControllers@delete')->name('categories.delete');
 Route::get('/categories-delete-all', 'CategoriesControllers@deleteAll')->name('categories.delete-all');
+
+//Users
+Route::resource('/users', 'UserControllers');
 
 // Route::group(['middleware' => ['web']], function () {
 //     Route::get('session', function () {

@@ -39,8 +39,8 @@
                         <th scope="col">#</th>
                         <th scope="col">Name</th>
                         <th scope="col">Show</th>
-                        <th scope="col">Total Posts</th>
-                        <th scope="col">User</th>
+                        <th scope="col">Total posts</th>
+                        <th scope="col">User updated</th>
                         <th scope="col">Create at</th>
                         <th scope="col">Update at</th>
                         <th colspan="2"></th>
@@ -73,8 +73,8 @@
                         <td>{{ count($category->posts) }}</td>
 
                         <td>{{ $category->users->username }}</td>
-                        <td>{{ $category->created_at }}</td>
-                        <td>{{ $category->updated_at }}</td>
+                        <td>{{ $category->created_at->format("d-m-Y H:i:s") }}</td>
+                        <td>{{ $category->updated_at->format("d-m-Y H:i:s") }}</td>
 
                         <td><a href="{{ route('categories.edit', $category->id) }}" class="btn btn-info">Edit</a></td>
 

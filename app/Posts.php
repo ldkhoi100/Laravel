@@ -35,11 +35,16 @@ class Posts extends Model
 
     public function users()
     {
-        return $this->belongsTo("App\Account", 'user_id');
+        return $this->belongsTo("App\User", 'user_id_created', 'id');
+    }
+
+    public function users_update()
+    {
+        return $this->belongsTo("App\User", 'user_id_updated', 'id');
     }
 
     public function categories()
     {
-        return $this->belongsTo("App\Categories", 'category_id');
+        return $this->belongsTo("App\Categories", 'category_id', 'id');
     }
 }

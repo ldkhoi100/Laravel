@@ -44,7 +44,8 @@
                         <th scope="col" width=13%>Content</th>
                         <th scope="col">Category</th>
                         <th scope="col">Image</th>
-                        <th scope="col">User</th>
+                        <th scope="col">User Created</th>
+                        <th scope="col">User Updated</th>
                         <th scope="col">Deleted at</th>
                         <th></th>
                         <th></th>
@@ -57,7 +58,7 @@
 
                     @if(count($posts) == 0)
 
-                    <td colspan="9" class="text-center font-weight-bold">No data</td>
+                    <td colspan="11" class="text-center font-weight-bold">No data</td>
 
                     @else
 
@@ -80,8 +81,20 @@
                             {{'No image'}}
                             @endif
                         </td>
+
+                        @if(empty($post->users->username))
+                        <td></td>
+                        @else
                         <td>{{ $post->users->username }}</td>
-                        <td>{{ $post->deleted_at }}</td>
+                        @endif
+
+                        @if(empty($post->users_update->username))
+                        <td></td>
+                        @else
+                        <td>{{ $post->users_update->username }}</td>
+                        @endif
+
+                        <td>{{ $post->deleted_at->format("d-m-Y H:i:s") }}</td>
 
                         <td><a href="{{ route('posts.edit', $post->id) }}" class="btn btn-info">Edit</a></td>
 

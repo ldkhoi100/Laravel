@@ -14,7 +14,7 @@ class AddCategoriesToPostsTable extends Migration
     public function up()
     {
         Schema::table('posts', function (Blueprint $table) {
-            $table->integer('category_id')->after('user_id')->unsigned()->nullable();
+            $table->integer('category_id')->after('user_id_updated')->unsigned()->nullable();
             $table->foreign('category_id')->references('id')->on('categories');
         });
     }

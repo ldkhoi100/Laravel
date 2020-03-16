@@ -14,6 +14,20 @@
         });
     });
 
+    //Image onchange
+    function readURL(event) {
+        if (event.target.files && event.target.files[0]) {
+        let reader = new FileReader();
+
+        reader.onload = function () {
+        let output = document.getElementById('zoom');
+        output.src = reader.result;
+        }
+
+        reader.readAsDataURL(event.target.files[0]);
+        }
+    }
+
 </script>
 
 </html>

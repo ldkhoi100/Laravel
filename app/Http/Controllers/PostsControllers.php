@@ -17,6 +17,7 @@ class PostsControllers extends Controller
     public function __construct()
     {
         // $this->middleware('auth');
+        // $this->middleware('role:ROLE_ADMIN');
     }
 
     /**
@@ -27,6 +28,7 @@ class PostsControllers extends Controller
     public function index()
     {
         $posts = Posts::paginate(10);
+        //For filter
         $categories = Categories::all();
         return view('posts.list', compact('posts', 'categories'));
     }
@@ -55,11 +57,11 @@ class PostsControllers extends Controller
         $post->content = request('content');
         $post->category_id = request('category_id');
 
-        if ($post->image) {
+        if (request('image')) {
             $post->image = base64_encode(file_get_contents($request->file('image')->getRealPath()));
         }
 
-        $post->user_id = Auth::user()->id;
+        $post->user_id_created = Auth::user()->id;
         $post->save();
 
         return redirect()->route('posts.index')->with('success', "New Post $post->title created!");
@@ -109,7 +111,7 @@ class PostsControllers extends Controller
             $post->image = base64_encode(file_get_contents($request->file('image')->getRealPath()));
         }
 
-        $post->user_id = Auth::user()->id;
+        $post->user_id_updated = Auth::user()->id;
         $post->save();
 
         return redirect()->route('posts.index')->with('success', "Update Post $post->title success!");

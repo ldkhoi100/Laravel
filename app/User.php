@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'username', 'is_admin'
+        'name', 'email', 'password', 'username', 'phone', 'is_admin'
     ];
 
     /**
@@ -36,6 +36,16 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function posts()
+    {
+        return $this->hasMany("App\Posts", 'user_id_created', 'id');
+    }
+
+    public function categories()
+    {
+        return $this->hasMany("App\Categories");
+    }
 
     //Relationship many-to-many to table roles
     public function roles()

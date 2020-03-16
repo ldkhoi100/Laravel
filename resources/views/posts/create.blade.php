@@ -55,7 +55,9 @@
 
                     <label>Image</label>
 
-                    <input type="file" name="image" class="form-control-file">
+                    <input id="imgPost" type="file" name="image" class="form-control" onchange="readURL(event)">
+
+                    <img id="zoom" src="#" alt="" srcset="" width="200" height="200">
 
                 </div>
 
@@ -69,4 +71,5 @@
 
     </div>
 </div>
+
 @endsection

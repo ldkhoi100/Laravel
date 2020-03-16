@@ -9,12 +9,10 @@
                 <div class="card-header text-center font-weight-bold">Change Password</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('change-password.store') }}">
+                    <form method="POST" action="{{ route('details.store') }}">
                         @csrf
 
-                        @foreach ($errors->all() as $error)
-                        <p class="text-danger">{{ $error }}</p>
-                        @endforeach
+                        @include('partials.message')
 
                         <div class="form-group row">
                             <label for="password" class="col-md-4 col-form-label text-md-right">Current Password</label>

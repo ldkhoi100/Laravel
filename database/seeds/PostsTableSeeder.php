@@ -17,7 +17,6 @@ class PostsTableSeeder extends Seeder
             $post = new Posts();
             $post->title = Str::random(12);
             $post->content = Str::random(12);
-            $post->user_id = 1;
             $post->category_id = 1;
             $post->save();
         }
